@@ -25,7 +25,7 @@ body.thai .lang-th { display: inline; }
   top: 0;
   z-index: 100;
 }
-.nav-logo { color: #e6b84c; font-size: 22px; font-weight: 900; letter-spacing: 1px; text-decoration: none; }
+.nav-logo { color: #e6b84c; font-size: 22px; font-weight: 900; letter-spacing: 0.5px; word-spacing: 3px; text-decoration: none; }
 .nav-logo span { color: #e6b84caa; font-size: 12px; margin-left: 8px; font-weight: 400; }
 .nav-links { display: flex; gap: 20px; align-items: center; }
 .nav-links a { color: #e6b84caa; font-size: 13px; text-decoration: none; transition: color 0.2s; }
@@ -187,6 +187,36 @@ body.thai .lang-th { display: inline; }
 .contact-btn.toast { background: #e6b84c; color: #1e1508; box-shadow: 0 4px 20px rgba(230,184,76,0.3); }
 .contact-btn.facebook { background: #1877f2; color: #fff; }
 .contact-btn.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: #fff; box-shadow: 0 4px 20px rgba(220,39,67,0.3); }
+.ig-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  position: relative;
+  flex-shrink: 0;
+}
+.ig-icon::before {
+  content: '';
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.ig-icon::after {
+  content: '';
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: #fff;
+  border-radius: 50%;
+  top: 2px;
+  right: 2px;
+}
 .contact-btn.phone { background: #2c1f0e; color: #e6b84c; border: 1.5px solid #e6b84c44; }
 .contact-numbers { text-align: center; margin-top: 24px; color: #e6b84caa; font-size: 15px; line-height: 2; }
 .contact-numbers strong { color: #e6b84c; }
