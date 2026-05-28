@@ -3,7 +3,7 @@
 html { scroll-behavior: smooth; }
 body {
   background: #2c1f0e;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Segoe UI', sans-serif;
   color: #fff;
   min-height: 100vh;
 }
