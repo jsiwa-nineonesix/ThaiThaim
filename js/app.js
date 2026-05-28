@@ -57,4 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initMenuTabs();
   activateTabFromHash();
   highlightNav();
+  const yr = document.getElementById('yr');
+  if (yr) yr.textContent = new Date().getFullYear();
 });
