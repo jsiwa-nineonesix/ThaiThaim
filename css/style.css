@@ -215,6 +215,29 @@ body.thai .lang-th { display: inline; }
 .footer-links a:hover { color: #e6b84c; }
 .footer p { color: #e6b84c44; font-size: 11px; }
 
+/* ===== LOGO ===== */
+.nav-logo-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  mix-blend-mode: luminosity;
+  filter: sepia(0.6) brightness(1.1);
+  flex-shrink: 0;
+}
+.hero-logo {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  border-radius: 50%;
+  mix-blend-mode: luminosity;
+  filter: sepia(0.8) brightness(1.15) contrast(1.1);
+  margin-bottom: 16px;
+  border: 2px solid #e6b84c44;
+  padding: 6px;
+  background: #3d2a10;
+}
+
 /* ===== TOAST ICON ===== */
 .toast-icon { width: 16px; height: 16px; vertical-align: middle; border-radius: 3px; }
 
