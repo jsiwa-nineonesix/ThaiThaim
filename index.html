@@ -122,6 +122,75 @@
   </div>
 </section>
 
+<!-- GOOGLE REVIEWS -->
+<section class="section" id="reviews-section" style="background:#1e1508;border-top:1px solid #e6b84c22;">
+  <div class="section-label">— What Our Customers Say —</div>
+  <div class="section-title" style="margin-bottom:4px;">Google Reviews</div>
+  <div id="reviews-overall" style="text-align:center;margin-bottom:28px;color:#e6b84caa;font-size:13px;"></div>
+  <div id="reviews-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;max-width:960px;margin:0 auto;">
+    <div style="text-align:center;color:#e6b84c66;font-size:13px;padding:40px;">Loading reviews...</div>
+  </div>
+  <div style="text-align:center;margin-top:24px;">
+    <a href="https://www.google.com/maps/search/ThaiThaim+Loveland+CO" target="_blank" rel="noopener"
+       style="color:#e6b84c;font-size:12px;border-bottom:1px solid #e6b84c66;padding-bottom:2px;text-decoration:none;">
+      View all reviews on Google →
+    </a>
+  </div>
+</section>
+
+<div id="google-places-map" style="display:none;"></div>
+
+<script>
+function initReviews() {
+  var service = new google.maps.places.PlacesService(document.getElementById('google-places-map'));
+  service.findPlaceFromQuery({
+    query: 'ThaiThaim 1360 E Eisenhower Blvd Loveland CO',
+    fields: ['place_id', 'name', 'rating', 'user_ratings_total']
+  }, function(results, status) {
+    if (status !== google.maps.places.PlacesServiceStatus.OK || !results.length) {
+      document.getElementById('reviews-grid').innerHTML = '<div style="text-align:center;color:#e6b84c66;font-size:13px;padding:40px;">Reviews unavailable right now.</div>';
+      return;
+    }
+    var placeId = results[0].place_id;
+    var rating = results[0].rating;
+    var total = results[0].user_ratings_total;
+    document.getElementById('reviews-overall').innerHTML =
+      '⭐ ' + rating + ' / 5 &nbsp;·&nbsp; ' + total + ' reviews on Google';
+    service.getDetails({
+      placeId: placeId,
+      fields: ['reviews', 'rating', 'user_ratings_total']
+    }, function(place, status2) {
+      if (status2 !== google.maps.places.PlacesServiceStatus.OK || !place.reviews) {
+        document.getElementById('reviews-grid').innerHTML = '<div style="text-align:center;color:#e6b84c66;font-size:13px;padding:40px;">Reviews unavailable right now.</div>';
+        return;
+      }
+      var good = place.reviews.filter(function(r) { return r.rating >= 4; });
+      if (!good.length) {
+        document.getElementById('reviews-grid').innerHTML = '<div style="text-align:center;color:#e6b84c66;font-size:13px;padding:40px;">No recent reviews available.</div>';
+        return;
+      }
+      var stars = function(n) {
+        var s = '';
+        for (var i = 0; i < 5; i++) s += i < n ? '⭐' : '☆';
+        return s;
+      };
+      document.getElementById('reviews-grid').innerHTML = good.map(function(r) {
+        var text = r.text.length > 220 ? r.text.substring(0, 220) + '…' : r.text;
+        return '<div style="background:#2c1f0e;border:1px solid #e6b84c22;border-radius:12px;padding:20px;">'
+          + '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">'
+          + '<img src="' + r.profile_photo_url + '" style="width:40px;height:40px;border-radius:50%;border:1px solid #e6b84c44;" onerror="this.style.display=\'none\'" alt="">'
+          + '<div><div style="color:#e6b84c;font-weight:700;font-size:13px;">' + r.author_name + '</div>'
+          + '<div style="font-size:11px;color:#e6b84c88;">' + r.relative_time_description + '</div></div></div>'
+          + '<div style="font-size:15px;margin-bottom:8px;">' + stars(r.rating) + '</div>'
+          + '<p style="color:#e6b84caa;font-size:12px;line-height:1.8;">"' + text + '"</p>'
+          + '</div>';
+      }).join('');
+    });
+  });
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzZ-D5veQx350S9DT5b2svWu6m1s_cZ3Y&libraries=places&callback=initReviews" async defer></script>
+
 <div class="info-strip">
   <div class="info-item">🕐 <strong><span class="lang-en">Every Day</span><span class="lang-th">ทุกวัน</span></strong> · 11:00 AM – 2:30 PM &amp; 4:00 PM – 8:30 PM</div>
   <span class="info-divider">|</span>
