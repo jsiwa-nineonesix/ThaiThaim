@@ -139,9 +139,13 @@
   <div id="reviews-grid" style="display:flex;gap:16px;max-width:1200px;margin:0 auto;overflow-x:auto;padding-bottom:8px;">
     <div style="text-align:center;color:#e6b84c66;font-size:13px;padding:40px;width:100%;">Loading reviews...</div>
   </div>
-  <div style="text-align:center;margin-top:24px;">
-    <a href="https://www.google.com/maps/search/ThaiThaim+Loveland+CO" target="_blank" rel="noopener"
-       style="color:#e6b84c;font-size:12px;border-bottom:1px solid #e6b84c66;padding-bottom:2px;text-decoration:none;">
+  <div style="text-align:center;margin-top:28px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+    <a id="leave-review-btn" href="https://www.google.com/maps/search/Thai+Thaim+Loveland+CO" target="_blank" rel="noopener"
+       style="background:#e6b84c;color:#1e1508;padding:10px 24px;border-radius:25px;font-size:13px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 14px rgba(230,184,76,0.3);">
+      ⭐ Love our food? Leave us a review!
+    </a>
+    <a href="https://www.google.com/maps/search/Thai+Thaim+Loveland+CO" target="_blank" rel="noopener"
+       style="color:#e6b84c;font-size:12px;border-bottom:1px solid #e6b84c66;padding-bottom:2px;text-decoration:none;align-self:center;">
       View all reviews on Google →
     </a>
   </div>
@@ -163,6 +167,13 @@ function initReviews() {
     var placeId = results[0].place_id;
     var rating = results[0].rating;
     var total = results[0].user_ratings_total;
+    // Set direct Google review link using Place ID
+    var reviewUrl = 'https://search.google.com/local/writereview?placeid=' + placeId;
+    var allUrl = 'https://www.google.com/maps/place/?q=place_id:' + placeId;
+    var leaveBtn = document.getElementById('leave-review-btn');
+    if (leaveBtn) leaveBtn.href = reviewUrl;
+    var allLinks = document.querySelectorAll('a[href*="maps/search/Thai"]');
+    allLinks.forEach(function(l) { l.href = allUrl; });
     document.getElementById('reviews-overall').innerHTML =
       '⭐ ' + rating + ' / 5 &nbsp;·&nbsp; ' + total + ' reviews on Google';
     service.getDetails({
