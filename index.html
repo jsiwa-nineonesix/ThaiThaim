@@ -127,8 +127,8 @@
   <div class="section-label">— What Our Customers Say —</div>
   <div class="section-title" style="margin-bottom:4px;">Google Reviews</div>
   <div id="reviews-overall" style="text-align:center;margin-bottom:28px;color:#e6b84caa;font-size:13px;"></div>
-  <div id="reviews-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;max-width:960px;margin:0 auto;">
-    <div style="text-align:center;color:#e6b84c66;font-size:13px;padding:40px;">Loading reviews...</div>
+  <div id="reviews-grid" style="display:flex;gap:16px;max-width:1200px;margin:0 auto;overflow-x:auto;padding-bottom:8px;">
+    <div style="text-align:center;color:#e6b84c66;font-size:13px;padding:40px;width:100%;">Loading reviews...</div>
   </div>
   <div style="text-align:center;margin-top:24px;">
     <a href="https://www.google.com/maps/search/ThaiThaim+Loveland+CO" target="_blank" rel="noopener"
@@ -148,7 +148,7 @@ function initReviews() {
     fields: ['place_id', 'name', 'rating', 'user_ratings_total']
   }, function(results, status) {
     if (status !== google.maps.places.PlacesServiceStatus.OK || !results.length) {
-      document.getElementById('reviews-grid').innerHTML = '<div style="text-align:center;color:#e6b84c66;font-size:13px;padding:40px;">Reviews unavailable right now.</div>';
+      document.getElementById('reviews-grid').innerHTML = '<div style="text-align:center;color:#e6b84c66;font-size:13px;padding:40px;width:100%;">Reviews unavailable right now.</div>';
       return;
     }
     var placeId = results[0].place_id;
@@ -161,12 +161,15 @@ function initReviews() {
       fields: ['reviews', 'rating', 'user_ratings_total']
     }, function(place, status2) {
       if (status2 !== google.maps.places.PlacesServiceStatus.OK || !place.reviews) {
-        document.getElementById('reviews-grid').innerHTML = '<div style="text-align:center;color:#e6b84c66;font-size:13px;padding:40px;">Reviews unavailable right now.</div>';
+        document.getElementById('reviews-grid').innerHTML = '<div style="text-align:center;color:#e6b84c66;font-size:13px;padding:40px;width:100%;">Reviews unavailable right now.</div>';
         return;
       }
-      var good = place.reviews.filter(function(r) { return r.rating >= 4; });
+      var good = place.reviews
+        .filter(function(r) { return r.rating >= 4; })
+        .sort(function(a, b) { return b.time - a.time; })
+        .slice(0, 5);
       if (!good.length) {
-        document.getElementById('reviews-grid').innerHTML = '<div style="text-align:center;color:#e6b84c66;font-size:13px;padding:40px;">No recent reviews available.</div>';
+        document.getElementById('reviews-grid').innerHTML = '<div style="text-align:center;color:#e6b84c66;font-size:13px;padding:40px;width:100%;">No recent reviews available.</div>';
         return;
       }
       var stars = function(n) {
@@ -175,14 +178,14 @@ function initReviews() {
         return s;
       };
       document.getElementById('reviews-grid').innerHTML = good.map(function(r) {
-        var text = r.text.length > 220 ? r.text.substring(0, 220) + '…' : r.text;
-        return '<div style="background:#2c1f0e;border:1px solid #e6b84c22;border-radius:12px;padding:20px;">'
-          + '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">'
-          + '<img src="' + r.profile_photo_url + '" style="width:40px;height:40px;border-radius:50%;border:1px solid #e6b84c44;" onerror="this.style.display=\'none\'" alt="">'
-          + '<div><div style="color:#e6b84c;font-weight:700;font-size:13px;">' + r.author_name + '</div>'
-          + '<div style="font-size:11px;color:#e6b84c88;">' + r.relative_time_description + '</div></div></div>'
-          + '<div style="font-size:15px;margin-bottom:8px;">' + stars(r.rating) + '</div>'
-          + '<p style="color:#e6b84caa;font-size:12px;line-height:1.8;">"' + text + '"</p>'
+        var text = r.text.length > 200 ? r.text.substring(0, 200) + '…' : r.text;
+        return '<div style="background:#2c1f0e;border:1px solid #e6b84c22;border-radius:12px;padding:20px;min-width:220px;flex:1;">'
+          + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">'
+          + '<img src="' + r.profile_photo_url + '" style="width:38px;height:38px;border-radius:50%;border:1px solid #e6b84c44;flex-shrink:0;" onerror="this.style.display=\'none\'" alt="">'
+          + '<div><div style="color:#e6b84c;font-weight:700;font-size:12px;">' + r.author_name + '</div>'
+          + '<div style="font-size:10px;color:#e6b84c88;">' + r.relative_time_description + '</div></div></div>'
+          + '<div style="font-size:14px;margin-bottom:8px;">' + stars(r.rating) + '</div>'
+          + '<p style="color:#e6b84caa;font-size:12px;line-height:1.7;">"' + text + '"</p>'
           + '</div>';
       }).join('');
     });
@@ -212,6 +215,7 @@ function initReviews() {
     <a href="hours.html"><span class="lang-en">Hours &amp; Location</span><span class="lang-th">เวลาและที่ตั้ง</span></a>
     <a href="contact.html"><span class="lang-en">Contact</span><span class="lang-th">ติดต่อ</span></a>
     <a href="https://www.facebook.com/ThaiThaimRestaurant" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://www.instagram.com/thai_thaim" target="_blank" rel="noopener">Instagram</a>
   </div>
   <p>© 2026 ThaiThai'm · 1360 E Eisenhower Blvd, Loveland, CO 80537 · Authentic Thai Kitchen</p>
 </footer>

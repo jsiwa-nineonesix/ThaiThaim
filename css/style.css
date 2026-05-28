@@ -186,6 +186,7 @@ body.thai .lang-th { display: inline; }
 }
 .contact-btn.toast { background: #e6b84c; color: #1e1508; box-shadow: 0 4px 20px rgba(230,184,76,0.3); }
 .contact-btn.facebook { background: #1877f2; color: #fff; }
+.contact-btn.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: #fff; }
 .contact-btn.phone { background: #2c1f0e; color: #e6b84c; border: 1.5px solid #e6b84c44; }
 .contact-numbers { text-align: center; margin-top: 24px; color: #e6b84caa; font-size: 15px; line-height: 2; }
 .contact-numbers strong { color: #e6b84c; }
