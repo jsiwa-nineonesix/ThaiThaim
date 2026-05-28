@@ -217,24 +217,18 @@ body.thai .lang-th { display: inline; }
 
 /* ===== LOGO ===== */
 .nav-logo-img {
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   object-fit: contain;
-  border-radius: 50%;
-  background: #f5ede0;
-  padding: 3px;
   flex-shrink: 0;
-  box-shadow: 0 0 0 1.5px #e6b84c66;
+  filter: drop-shadow(0 0 4px rgba(230,184,76,0.4));
 }
 .hero-logo {
-  width: 150px;
-  height: 150px;
+  width: 160px;
+  height: 160px;
   object-fit: contain;
-  border-radius: 50%;
-  background: #f5ede0;
-  padding: 10px;
   margin-bottom: 20px;
-  box-shadow: 0 0 0 2px #e6b84c88, 0 8px 32px rgba(230,184,76,0.25);
+  filter: drop-shadow(0 4px 16px rgba(230,184,76,0.35));
 }
 
 /* ===== TOAST ICON ===== */
